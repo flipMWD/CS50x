@@ -1,0 +1,107 @@
+#--------------------------------------------------
+# Structured Query Language
+#--------------------------------------------------
+
+# Storing Data Basic Operations:
+CREATE (INSERT)
+READ   (SELECT)
+UPDATE
+DELETE
+
+# Data Types
+BLOB (Binary Large Object)
+INTEGER: smallint, integer, bigint
+NUMERIC: boolean, date, datetime, numeric(scale, precision), time, timestamp
+REAL: real, double precision
+TEXT: char(n), varchar(n), text
+
+# Functions
+AVG
+COUNT
+DISTINCT
+MAX
+MIN
+
+# Features
+WHERE
+LIKE
+LIMIT
+GROUP BY
+ORDER BY
+JOIN
+
+#--------------------------------------------------
+# Reading: SELECT columns FROM table WHERE condition;
+#--------------------------------------------------
+
+$ sqlite3 [database.db]
+> .mode csv
+> .import "file.csv" table
+> .tables
+> .schema [table]
+> .exit
+
+# Schema: Load File Table Structure
+CREATE TABLE table{
+	"time" TEXT,
+	"title" TEXT,
+	"genre" TEXT
+};
+
+> SELECT genre FROM favorites;
+> SELECT title FROM favorites ORDER BY title;
+
+# Load unique names
+> SELECT DISTINCT(title) FROM favorites;
+
+# Output title|(count titles)
+> SELECT title, COUNT(title) FROM favorites GROUP BY title;
+> SELECT title, COUNT(title) AS n FROM favorites GROUP BY title LIMIT 10;
+
+# Match specific, % equivalent to *
+> SELECT title, time FROM favorites WHERE title = "Adventureland";
+> SELECT title, time FROM favorites WHERE time LIKE "12%";
+> SELECT COUNT(title) FROM favorites WHERE time LIKE "12%";
+
+# List title|n, order based on n(count titles) in descending order
+> SELECT title, COUNT(title) AS n FROM favorites GROUP BY title ORDER BY n DESC;
+> SELECT COUNT(*) FROM shows WHERE genres LIKE "%Comedy%" AND startYear = 2019;
+
+# Nested tables
+> SELECT * FROM shows WHERE id IN (SELECT shows_id FROM genres WHERE genre = "Comedy") AND year = 2019;
+
+# Joining tables
+> SELECT * FROM shows JOIN genres ON shows.id = genre.show_id;
+
+# Alternate syntax
+> SELECT title
+  FROM people
+    JOIN stars ON people.id = stars.person_id
+    JOIN shows ON stars.show_id = shows.id
+  WHERE name = "Steve Carell";
+
+#--------------------------------------------------
+# Writing: INSERT INFO table (column, ...) VALUES(value, ...);
+#--------------------------------------------------
+
+# Primary and Foreign key for same values in defferent tables
+# The Primary Key column is indexed in a Tree Data Structure
+> CREATE TABLE shows (id INT, title TEXT, year NUMERIC, PRIMARY KEY(id));
+> CREATE TABLE genres (show_id INT, genre TEXT, FOREIGN KEY(show_id) REFERENCES shows(id));
+
+# Create more B-Trees
+> CREATE INDEX person_index ON stars (person_id);
+
+#--------------------------------------------------
+# Update: UPDATE table SET COLUMN=value WHERE condition;
+#--------------------------------------------------
+
+> UPDATE favorites SET title = "The Office" WHERE title LIKE "%office%";
+> ALTER TABLE table ADD COLUMN newCol TYPE;
+
+#--------------------------------------------------
+# Delete: DELETE table WHERE condition;
+#--------------------------------------------------
+
+> DELETE FROM favorites WHERE title = "Friends";
+> DROP TABLE favorites;

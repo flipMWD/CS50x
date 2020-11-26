@@ -1,0 +1,35 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div.bg {
+	padding: 40px 0px;
+	background: lightgray;
+}
+
+#main-header {
+	padding-top: 10px;
+	padding-left: 10px;
+	border-left: black 4px solid;
+	margin-left: 20px;
+}
+
+table {
+	border-collapse: collapse;
+	margin: auto;
+	border: gray 1px solid;
+}
+
+th, td {
+	padding: 4px 10px;
+}
+
+tr:first-child {
+	color: white;
+	background: darkgray;
+}
+
+tr:nth-child(even) {
+	background: white;
+}

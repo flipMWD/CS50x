@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contents</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+	<nav class="nav">
+		<a class="nav-link" href="index.html">LOGO</a>
+		<a class="nav-link" href="content.html">Contents</a>
+		<a class="nav-link" href="about.html">About</a>
+		<a class="nav-link" href="contact.html">Contact</a>
+		<button id="theme" class="btn btn-info">Dark Theme</button>
+	</nav>
+	<div class="jumbotron">
+		<h1>Contents</h1>
+		<p class="lead">This page shows the contents of the programming
+		languages.</p>
+	</div>
+	<div class="jumbotron">
+		<h2 id="bashContent">Bash</h2>
+		<span class="return">< <a href="index.html">Return Home</a></span>
+		<hr class="my-4">
+		<pre>
+			<code>
+# SysAdmin - Bash Scripting
+
+# File Descriptor
+STDIN	/dev/stdin  -> /proc/self/fd/0
+STDOUT	/dev/stdout -> /proc/self/fd/1
+STDERR	/dev/stderr -> /proc/self/fd/2
+
+# Redirection
+>	STDOUT (default)
+1>	STDOUT
+2>	STDERR
+&	File Descriptor
+	# 2>&1 = redirect STDERR to STDOUT
+	# 2>1  = redirect STDERR to file 1
+<<<	Literal String
+
+echo "Redirect STDOUT to file or device" > filename
+echo "Append" >> filename
+wc -l < filename			# useful for cmds that don't take file input
+cat filename | wc -l
+
+# Variables
+sep="separated"
+echo This variable is $sep
+dlm="delimited"
+echo "This variable is ${dlm}: by braces"
+echo "There are `wc -l < /etc/group` lines in /etc/group"
+
+$#=argc
+$0=argv[0]
+$1-n=argv[x]
+$@=argv
+$*="argv[0] argv[1]..."
+$?=prev_return|exit
+$$=PID
+$-=sh option flags specified upon invocation -l (login shell), or -i[nteractive]
+
+# Brace Expansion
+{1..5}						# create list of 1 2 3 4 5
+{A, B}						# create list of A B
+{A, B, C}.ext				# expands to A.ext B.ext C.ext
+
+# Parameter Expansion
+${param-=?+word}			# without : tests only for param unset
+${param:-word}				# subst word if param is unset or null
+${param:=word}				# assign word to param if unset or null
+${param:?word}				# write word 2>&1 to shell if param unset or null
+${param:+word}				# subst word if param is NOT unset or null
+
+${param:offset:lenght}		# slicing
+${param:(-offset):length}	# offset from the right
+word="abcdefgh"
+${word:5}					# -> fgh
+${word::-2}					# -> abcdef
+${word:1:3}					# -> bcd
+${word:(-4):3}				# -> efg (h = -1, ..., e = -4)
+
+${param#prefix}				# remove prefix (non-greedy)
+${param%suffix}				# remove suffix (non-greedy)
+${param##prefix}			# remove long prefix (greedy)
+${param%%suffix}			# remove long suffix (greedy)
+${param/from/to}			# replace first match
+${param//from/to}			# replace all
+${param/#from/to}			# replace prefix
+${param/%from/to}			# replace suffix
+
+# Quoting
+exp=`date +%d`
+sqt='Prints literal chars ${[("`!, except \\ and \'.'
+dqt="Interprets ${variables}, escape sequences\n and `expressions`."
+
+# Logical Operators
+(cat filename | wc -l) && echo "() order of operation, && execute if lhs was successful"
+
+ls \rot || echo "|| execute this if lhs failed"
+
+# Conditional Expressions (man bash)
+[ -a "$file_exists" ]		# -d[irectory], -e[xists] -f[file regular]
+							# -h -L [symbolyc link], -s[ize greater than zero]
+							# -r[eadable], -w[ritable], -x [executable]
+[ "$file1" -ef "$file2" ]	# same device and inode number
+[ "$file1" -nt "$file2" ]	# newer than
+[ "$file1" -ot "$file2" ]	# older than
+
+[ -o "$shell_opt_enabled" ]	# eg. set -o vi
+[ -v "$var_is_set" ]
+
+[ -n "$str_not_null" ]
+[ -z "$str_zero_len" ]
+[ "$str1" == "$str2" ]		# equal, single = for POSIX conformance
+[ "$str1" != "$str2" ]		# different
+[ "$str1" < "$str2" ]		# $str1 sorts before lexographically
+[ "$str1" > "$str2" ]		# $str1 sorts after lexographically
+
+[ "$num1" -eq "$num2" ]		# number values are equal
+[ "$num1" -ne "$num2" ]		# not equal
+[ "$num1" -lt "$num2" ]		# less than
+[ "$num1" -le "$num2" ]		# less than or equal
+[ "$num1" -gt "$num2" ]		# greater than
+[ "$num1" -ge "$num2" ]		# greater than or equal
+
+# Compound Command (man bash)
+( cmd )						# executed in a subshell
+{ cmd; }					# executed in the same shell, group cmd
+(( expr ))					# arithmetic evaluation
+[[ expr ]]					# conditional expression, no quoting, =~ regex
+
+# Control Flow and Iteration
+if [ "$val1" -lt "$val2" ]; then
+	exec program args...
+elif [ -f "$file_exists" ]; then
+	exec program2 args...
+else
+	exit 1
+fi
+
+case "$val" in
+	opt1)	cmd	;;
+	opt2)	cmd	;;
+	opt3)	cmd	;;
+	*)		cmd	;;
+esac
+
+for arg in "$@"; do
+	echo "$arg"
+done
+
+function name() {
+	echo "Functions do not have params, they call passed args with $1-n"
+}
+
+name "Calling" "function" "name()" "with" "multiple" "args"
+
+# Executing Script
+./script.sh					# run in this same instance
+bash script.sh				# run in a new instance
+source script.sh			# run in the login shell
+
+# Typescript of Terminal Session (man script)
+script [filename] [--timing=time.log]
+cmd
+cmd
+cmd
+^d|exit
+
+less -R[AW-CONTROL-CHARS] typescript|[filename]
+scriptreplay -s [filename] -t [time.log]
+
+script -c 'cmd [-args...]' filename
+			</code>
+		</pre>
+	</div>
+	<div class="jumbotron">
+		<h2 id="pythonContent">Python</h2>
+		<span class="return">< <a href="index.html">Return Home</a></span>
+		<hr class="my-4">
+		<pre>
+			<code>
+#-----------------#
+# Data Structures #
+#-----------------#
+
+from collections import deque
+from math import pi
+
+#------------------
+# Lists
+#------------------
+
+squares = [1, 4, 9, 16, 25]
+first   = squares[0]
+last    = squares[-1]
+slices  = squares[:-3]      # return new list
+concat  = squares + [36, 49, 64, 81, 100]
+print(squares, first, last, slices, concat)
+
+# Slices
+#  ┌───┬───┬───┬───┬───┬───┐    > str[2:4]  = 'th'
+#  │ P │ y │ t │ h │ o │ n │    > str[1:-2] = 'yth'
+#  └───┴───┴───┴───┴───┴───┘    > str[0:5:2] = 'Pto' *[from:to:step]
+#  0   1   2   3   4   5   6
+# -6  -5  -4  -3  -2  -1
+
+cubes = [1, 8, 27, 65, 125]
+cubes[3] = 4**3
+cubes.append(216)
+cubes.append(7**3)
+print(cubes)
+
+letters = ['a', 'b', 'c', 'd', 'f', 'g']
+letters[2:5] = ['C', 'D', 'E']
+list_length = len(letters)
+print(letters, list_length)
+
+sales = ['Dwight', 'Jim', 'Phyllis', 'Stanley']
+sales[sales.index('Jim')] = 'Ryan'  # mutable sequence
+sales.insert(1, 'Jim')              # index postion, value
+sales.remove('Ryan')                # remove first value found
+sales.extend(['Andy', 'Karen'])     # equivalent to a[len(a):] = a,b
+sales.pop()                         # last by default, optional index
+sales.append('Pam')                 # equivalent to a[len(a):] = a,[b]
+print(sorted(sales))
+sales.clear()                       # equivalent to del a[:]
+
+# List as Stack
+stack = [3, 4, 5]
+stack.append(6)     # push()
+stack.append(7)
+stack.pop()         # pop()
+print(stack)
+
+# List as Queue
+queue = deque(["Eric", "John", "Michael"])
+queue.append("Terry")       # enqueue()
+queue.append("Graham")
+print(queue.popleft())      # dequeue() = Eric
+print(queue.popleft())      # John
+print(queue)
+
+#---------------------
+# List Comprehensions
+#---------------------
+
+squares = []
+for x in range(10):
+    squares.append(x**2)
+print(squares)
+
+squares = list(map(lambda x: x**2, range(10)))
+print(squares)
+
+# A list comprehension consists of bracket containing an expression followed by
+# a for clause, then zero or more for or if clauses
+squares = [x**2 for x in range(10)]
+print(squares)
+
+combine = []
+for x in [1,2,3]:
+    for y in [3,1,4]:
+        if x != y:
+            combine.append((x, y))
+print(combine)
+
+combine = [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+print(combine)
+
+vec = [-4, -2, 0, 2, 4]
+double = [x*2 for x in vec]
+print(double)
+positive = [x for x in vec if x >= 0]
+print(positive)
+mapping = [abs(x) for x in vec]
+print(mapping)
+
+freshfruit = [' banana', ' loganberry ', 'passion fruit ']
+map_set = [word.strip() for word in freshfruit]
+print(map_set)
+
+map_tuple = [(x, x**2) for x in range(6)]
+print(map_tuple)
+
+matrix = [[1,2,3], [4,5,6], [7,8,9]]
+flatten_matrix = []
+for elem in matrix:
+    for num in elem:
+        flatten_matrix.append(num)
+print(flatten_matrix)
+
+flatten_matrix = [num for elem in matrix for num in elem]
+print(flatten_matrix)
+
+# Can contain complex nested functions and expressions
+pi_digits = [str(round(pi, i)) for i in range(1, 6)]
+print(pi_digits)
+
+# Nested List Comprehensions
+matrix = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12]
+]
+row_to_col = []
+for i in range(4):
+    cur_col = []
+    for row in matrix:
+        cur_col.append(row[i])
+    row_to_col.append(cur_col)
+print(row_to_col)
+
+row_to_col = []
+for i in range(4):
+    row_to_col.append([row[i] for row in matrix])
+print(row_to_col)
+
+row_to_col = [[row[i] for row in matrix] for i in range(4)]
+print(row_to_col)
+
+# Unpacking argument lists: * lists and tuples, ** dictionary keywords
+zipped_rows = list(zip(*matrix))
+print(zipped_rows)
+
+#---------------------
+# Del Statement
+#---------------------
+
+a = [-1, 1, 66.25, 333, 333, 1234.5]
+del a[0]
+print(a)
+
+del a[2:4]  # slice
+print(a)
+
+del a[:]    # clear
+print(a)
+
+del a       # remove variable
+
+#----------------------
+# Tuples and Sequences
+#----------------------
+
+t = (1, 2, "immutable")
+u = 4, 5, "no parenthesis"
+p = "single element",
+l = ("nested", t, u, p)
+e = (["with", t[2], "objects"],)
+e[0][1] = "mutable"
+print(t, u, p, l, e, sep="\n")
+
+# Sequence Unpacking
+coord_3d = (4.3, 1.666, 15.9)
+x, y, z = coord_3d
+print(f"X = {x}, Y = {y}, Z = {z}")
+
+#----------------------
+# Sets
+#----------------------
+
+# Sets list unordered unique elements
+basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+print(f"Set: {basket}, {'orange' in basket}, {'crabgrass' in basket}")
+
+s1 = set('abracadabra')
+s2 = set('alacazam')
+print(f"Sets with Unique Elements:\na = {s1}, b = {s2}")
+print(f"""Set Operations:
+{s1 - s2}\t\t\t\t\t# a but not b
+{s1 | s2}\t# a, b or both
+{s1 & s2}\t\t\t\t\t# both a and b
+{s1 ^ s2}\t\t\t# a or b, but not both""")
+
+# Set Comprehensions
+s3 = {x for x in 'abracadabra' if x not in 'abc'}
+print(f"Set Comprehension:\n{s3}")
+
+empty_set = set()   # var = {} creates an empty Dictionary instead
+
+#----------------------
+# Dictionaries
+#----------------------
+
+# Dictionaries can have numbers, strings and tuples as keys (immutables)
+dict_test = {("test", "one"): "Value 1", ("test", "two"): "Value 2"}
+print(dict_test[("test", list(dict_test)[1][1])])
+
+tel = {'jack': 4098, 'sape': 4139}
+tel['guido'] = 4127
+del tel['sape']
+tel['irv'] = 4126
+print(f"Dictionary: {tel}")
+print(f"Keys (Insertion Order): {list(tel)}\nKeys (Sorted Order): {sorted(tel)}")
+
+# Dict constructor
+tel = dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
+print("Constructed:", tel)
+
+# Dict Comprehension
+powers = {x: x**2 for x in (2, 4, 6)}
+print(powers)
+
+#----------------------
+# Looping Techniques
+#----------------------
+
+# Key, Value in Dictionary
+knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+for k, v in knights.items():
+    print(k, v)
+
+# Index, Value in List
+for i, v in enumerate(['tic', 'tac', 'toe']):
+    print(i, v)
+
+# Index position in list of dictionaries, by value
+table = [{'id':'1234', 'name':'Jason'},
+         {'id':'2345', 'name':'Tom'},
+         {'id':'3456', 'name':'Art'}]
+def find_val(lst, key, val):
+    for i, dct in enumerate(lst):
+        if dct[key] == val:
+            return i
+    return -1
+print("Index =", find_val(table, "name", "Tom"))
+
+# Loop over two or more sequences
+questions = ['name', 'quest', 'favorite color']
+answers = ['lancelot', 'the holy grail', 'blue']
+for q, a in zip(questions, answers):
+    print(f"What is your {q}? It is {a}.")
+
+# Reverse sequence
+for i in reversed(range(1, 10, 2)):
+    print(i)
+
+#----------------------
+# Comparing Sequences
+#----------------------
+
+if (1, 2, 3) < (1, 2, 4):
+    if [1, 2, 3] < [1, 2, 4]:                       # lexicographycally,
+        if 'ABC' < 'C' < 'Pascal' < 'Python':       # Py > Pa > C > A
+            if (1, 2) < (1, 2, -1):                 # -1 > None
+                if (1, 2, 3) == (1.0, 2.0, 3.0):    # c in 'abc' > None in 'aa'
+                    if (1, 2, ('aa', 'ab')) < (1, 2, ('abc', 'a'), 4):
+                        print("All True")
+			</code>
+		</pre>
+	</div>
+	<div class="jumbotron">
+		<h2 id="cContent">C</h2>
+		<span class="return">< <a href="index.html">Return Home</a></span>
+		<hr class="my-4">
+		<pre>
+			<code>
+# The Elements of Programming Style
+
+# unclear
+if (Armed ? Vcnt>=Threshold : Vcnt<=Threshold)
+	// chk if exceed threshold
+	...
+
+# clear, && takes precedence
+if (Armed && Vcnt >= Threshold
+	|| !Armed && Vcnt <= Threshold)
+	...
+
+# dumb
+char blank[ ] = " ";	/* define blank */
+...
+if (strncmp(str, blank, 1) != 0) {
+	if ((strcmp(str, "0") >= 0)
+		&& (strcmp(str, "9") <= 0)) {
+		(void) strncpy(str1, str, 1);
+		...
+	}
+}
+
+# smart
+if (str[0] != ' ') {
+	if (isdigit(str[0])) {
+		str1[0] = str[0];
+	}
+}
+
+# keep it simple
+char *remove_all_spaces(char *data) {
+	char *ptr;
+	int length = strlen(data);
+
+	ptr = data;
+	while ((ptr = strpbrk(data, " "))) {
+		memmove(ptr, ptr+1, strlen(ptr)+1);
+		length--;
+	}
+	// Terminate at the new string length
+	data[length] = '\0';
+	return(data);
+}
+
+# simplified
+char *remove_all_spaces(char *data) {
+	char *in, *out;
+
+	for (in = out = data; *in != '\0'; in++)
+		if (*in != ' ')
+			*out++ = *in;	// copy non-blanks, increment out
+	*out = '\0';
+	return data;
+}
+
+# know your language
+if (i == 0) c = '0';
+if (i == 1) c = '1';
+if (i == 2) c = '2';
+if (i == 3) c = '3';
+if (i == 4) c = '4';
+if (i == 5) c = '5';
+if (i == 6) c = '6';
+if (i == 7) c = '7';
+if (i == 8) c = '8';
+if (i == 9) c = '9';
+
+# correctly convert numbers to characters
+if (i >= 0 && i <= 9)
+	c = i + '0';
+
+# know your language (2), Java
+private static int makeEightBits(int q) {
+	for (int i = 15; i >= 8; i--)
+		if (q >= Math.pow(2,i))
+			q -= Math.pow(2,i);
+	return (q);
+}
+
+# reduce number to 8 bits
+private static int makeEightBits(int q) {
+	return q & 0xFF;	// preserve only the bits you want
+}
+
+# don't mix logical and arithmetic operators
+\# define flip2(a) (((a) & 0xFF) << 8 + ((a) & 0xFF00) >> 8)
+	// mask lower 8 bits and shift up, mask higher 8 bits, shift down
+	// + takes higher precedence over bit shifting, screwing it all up
+
+# interchange 2 bytes of a short
+\# define flip2(a) ((a) << 8 | ((a) >> 8) & 0xFF)
+	// & has higher precendenc than |, so it clips the >> to 8 bits
+	// | or is at right level of precedence to add both back
+
+# avoid macros in c and c++
+\# define isdigit(c) ((c) >= '0' && (c) <= '9')
+
+# test programs at their bondaries
+char *remove_trailing_asterisk(char *data) {
+	int i;
+	//shjoudl the test hrere i>=0?? // yes, in case of one char in line
+	for (i = strlen(data)-1; i > 0; i--) {
+		if {data[i] == '*')
+			data[i] = '\0';
+	}
+	return (data);
+}
+
+# program defensively: check parameters
+float st_stdev(float *buf, int M)
+{
+	double stdev = 0;
+	int m;
+	float mean = st_mean(buf, M);
+
+	for (m = 0; m < M; m++) 
+		stdev += (buf[m] - mean) * (buf[m] ???
+
+	return sqrt(stdev/(M-1));	// error: dividing by zero if M <= 1
+}
+
+# if if if ... bad bad bad
+# dont nest ifs, use else if to slim the options one by one
+
+# control flow or data?
+if (!(new = append_char(ch++,50,5)))
+	return (false);		/* height will be 10 */
+if (!(new = append_char(ch++,50,10)))
+	return (false);		/* force height=10 */
+/* line 2 is 10 high, 3 char, ...: */
+if (!(new = append_char(ch++,1,1))) return (false);
+if (!(new = append_char(ch++,98,1))) return (false);
+if (!(new = append_char(ch++,1,10))) return (false);
+if (!(new = append_char(ch++,25,1))) return (false);
+if (!(new = append_char(ch++,25,1))) return (false);
+if (!(new = append_char(ch++,25,1))) return (false);
+if (!(new = append_char(ch++,25,1))) return (false);
+if (!(new = append_char(ch++,1,10))) return (false);
+return (true);
+
+# put regularity in control flow, irregularity in data
+static int xy[] = {
+	50,	5,			/* height will be 10 */
+	50,	10,			/* force height=10 */
+	1,	1,			/* line 2 is 10 high, 3 chars, ...: */
+	98,	1,
+	25,	1,
+	25,	1,
+	25,	1,
+	25,	1,
+	1,	10,
+	-1,	-1,
+};
+
+for (i = 0; xy[i] != -1; i += 2)
+	if ((new = append_char(ch++, xy[i], xy[i+1]))
+		return false;
+
+return true;
+
+# avoid magic numbers
+return ((inByte >= 65 && inByte <= 90) ||
+        (inByte >= 97 && inByte <= 122) ||
+        ...
+
+# use macros, enums or other labels for them
+return ((inByte >= 'A' && inByte <= 'Z') ||
+        (inByte >= 'a' && inByte <= 'z') ||
+        ...
+
+# use names that mean something, not random words
+# don't be too clever
+# don't sacrifice clarity for efficency
+# know your language
+# use the idioms of your language
+# every time you make a decision, do something
+# check bondary conditions
+# program defensively
+# make every comment count
+# don't comment bad code - rewrite it
+# say what you mean, simply and direct as possible
+# write as clearly as you can
+			</code>
+		</pre>
+	</div>
+	<div class="jumbotron">
+		<h2 id="cppContent">C++</h2>
+		<span class="return">< <a href="index.html">Return Home</a></span>
+		<hr class="my-4">
+		<pre>
+			<code>
+#include <iostream>
+#include <queue>
+
+#define lit(var) #var
+
+template <class T>
+class BinarySearchTree {
+    private:
+        struct BSTNode {
+            T data;
+            BSTNode* left;
+            BSTNode* right;
+        };
+
+        BSTNode* root;
+
+        BSTNode* getNewNode(T data) {
+            BSTNode* newNode = new BSTNode;
+            newNode->data  = data;
+            newNode->left  = nullptr;
+            newNode->right = nullptr;
+
+            return newNode;
+        }
+
+        BSTNode* recursiveInsert(T data, BSTNode* node) {
+            if (!node) {
+                node = getNewNode(data);
+            } else if (data <= node->data) {
+                node->left = recursiveInsert(data, node->left);
+            } else {
+                node->right = recursiveInsert(data, node->right);
+            }
+
+            return node;
+        }
+
+        BSTNode* recursiveDeleteVal(T data, BSTNode* node) {
+            if (!node) return node;
+            else if (data < node->data) {
+                node->left = recursiveDeleteVal(data, node->left);
+            } else if (data > node->data) {
+                node->right = recursiveDeleteVal(data, node->right);
+            } else {
+                if (!node->left && !node->right) {
+                    delete node;
+                    node = nullptr;
+                } else if (!node->left) {
+                    BSTNode* temp = node;
+                    node = node->right;
+                    delete temp;
+                } else if (!node->right) {
+                    BSTNode* temp = node;
+                    node = node->left;
+                    delete temp;
+                } else {
+                    BSTNode* temp = findMin(node->right);
+                    node->data = temp->data;
+                    node->right = recursiveDeleteVal(temp->data, node->right);
+                }
+            }
+
+            return node;
+        }
+
+        BSTNode* recursiveSearchNode(T data, BSTNode* node) {
+            if (!node) return node;
+
+            if (data == node->data) {
+                // node->data = 14; // mess up BST for test purposes
+                return node;
+            } else if (data < node->data) {
+                return recursiveSearchNode(data, node->left);
+            } else return recursiveSearchNode(data, node->right);
+        }
+
+        BSTNode* findMin(BSTNode* node) {
+            if (!node) return node;
+            else if (!node->left) return node;
+
+            return findMin(node->left);
+        }
+
+        BSTNode* findMax(BSTNode* node) {
+            if (!node) return node;
+            else if (!node->right) return node;
+
+            return findMax(node->right);
+        }
+
+        int recursiveFindHeight(BSTNode* node) {
+            if (!node) return -1;
+
+            return (
+                std::max(
+                    recursiveFindHeight(node->left),
+                    recursiveFindHeight(node->right)
+                ) + 1
+            );
+        }
+
+        BSTNode* recursiveSuccessorNode(T data, BSTNode* node) {
+            BSTNode* current = recursiveSearchNode(data, node); // O(h)
+            if (!current) return nullptr;
+
+            if (current->right) return findMin(current->right);
+            else {
+                BSTNode* succ = nullptr;
+                BSTNode* ance = node;
+
+                while (ance != current) {
+                    if (ance->data > current->data) {
+                        succ = ance;
+                        ance = ance->left;
+                    } else {
+                        ance = ance->right;
+                    }
+                }
+
+                return succ;
+            }
+        }
+
+        bool isBSTBoundary(BSTNode* node, T minValue, T maxValue) {
+            if (!node) return true;
+
+            if (node->data >= minValue && node->data <= maxValue &&
+                isBSTBoundary(node->left, minValue, node->data) &&
+                isBSTBoundary(node->right, node->data, maxValue)) {
+                return true;
+            }
+
+            return false;
+        }
+
+        bool isBSTInOrder(BSTNode* node, T& prev) {
+            if (!node) return true;
+
+            if (!isBSTInOrder(node->left, prev)) return false;
+            if (prev > node->data) return false;
+            prev = node->data; // change the ref to value in prev stack frame
+            if (!isBSTInOrder(node->right, prev)) return false;
+
+            return true;
+        }
+
+        void iterateLevelOrder(BSTNode* node) {
+            if (!node) return;
+
+            std::queue<BSTNode*> q; // FIFO
+            q.push(node);
+
+            while (!q.empty()) {
+                BSTNode* current = q.front();
+                std::cout << " " << current->data;
+
+                if (current->left) q.push(current->left);
+                if (current->right) q.push(current->right);
+
+                q.pop();
+            }
+        }
+
+        void recursivePreOrder(BSTNode* node) {
+            if (!node) return;
+
+            std::cout << " " << node->data;
+            recursivePreOrder(node->left);
+            recursivePreOrder(node->right);
+        }
+
+        void recursiveInOrder(BSTNode* node) {
+            if (!node) return;
+
+            recursiveInOrder(node->left);
+            std::cout << " " << node->data;
+            recursiveInOrder(node->right);
+        }
+
+        void recursivePostOrder(BSTNode* node) {
+            if (!node) return;
+
+            recursivePostOrder(node->left);
+            recursivePostOrder(node->right);
+            std::cout << " " << node->data;
+        }
+
+    public:
+        BinarySearchTree() : root(nullptr) {}
+        ~BinarySearchTree() { root = nullptr; }
+
+        void insert(T data) {
+            root = recursiveInsert(data, root);
+        }
+
+        T deleleValue(T data) {
+            return recursiveDeleteVal(data, root)->data;
+        }
+
+        bool searchValueExist(T data) { // if exists in the tree or not
+            return recursiveSearchNode(data, root);
+        }
+
+        T findMinValue() {
+            return findMin(root)->data;
+        }
+
+        T findMaxValue() {
+            return findMax(root)->data;
+        }
+
+        int findHeight() {
+            return recursiveFindHeight(root);
+        }
+
+        T findSuccessor(T data) {
+            return recursiveSuccessorNode(data, root)->data;
+        }
+
+        bool validTree() { // boundary method
+            return isBSTBoundary(root, INT_MIN, INT_MAX);
+        }
+
+        bool validSorted() { // inOrder method
+            T prev = INT_MIN;
+
+            return isBSTInOrder(root, prev);
+        }
+
+        // Modes: Level-Order, Pre-Order, In-Order, Post-Order
+        void printOrder(std::string mode) {
+            if (mode == "level") {
+                std::cout << "Level-Order:";
+                iterateLevelOrder(root);
+                std::cout << '\n';
+            } else if (mode == "pre") {
+                std::cout << "Pre-Order:";
+                recursivePreOrder(root);
+                std::cout << '\n';
+            } else if (mode == "in") {
+                std::cout << "In-Order:";
+                recursiveInOrder(root);
+                std::cout << '\n';
+            } else if (mode == "post") {
+                std::cout << "Post-Order:";
+                recursivePostOrder(root);
+                std::cout << '\n';
+            } else {
+                std::cout << "Incorrect mode. Try: \"level\", \"pre\", \"in\" or \"post\"\n";
+            }
+        }
+};
+
+int main() {
+    BinarySearchTree<int> myNumberTree;
+
+    myNumberTree.insert(15);
+    myNumberTree.insert(8);
+    myNumberTree.insert(32);
+    myNumberTree.insert(19);
+    myNumberTree.insert(3);
+    myNumberTree.insert(42);
+    myNumberTree.insert(87);
+
+    myNumberTree.printOrder("preorder"); // invalid
+    myNumberTree.printOrder("level");
+    myNumberTree.printOrder("pre");
+
+    myNumberTree.deleleValue(32);
+
+    myNumberTree.printOrder("in");
+    myNumberTree.printOrder("post");
+
+    std::cout << "\nHeight: " << myNumberTree.findHeight() <<
+        "\nMinimum Value: " << myNumberTree.findMinValue() <<
+        "\nMaximum Value: " << myNumberTree.findMaxValue() << '\n';
+
+    std::cout << "Number 18 is included: ";
+    if (myNumberTree.searchValueExist(18)) std::cout << "true\n";
+    else std::cout << "false\n";
+
+    std::cout << "The successor of 19 in the tree is: " <<
+        myNumberTree.findSuccessor(19) << '\n';
+
+    // myNumberTree.checkValue(42); // replace 42 for 14, breaking BST
+
+    std::cout << lit(myNumberTree) << " is a binary tree: ";
+    if (myNumberTree.validTree() && myNumberTree.validSorted()) {
+        std::cout << "true\n";
+    } else std::cout << "false\n";
+
+    return 0;
+}
+			</code>
+		</pre>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>

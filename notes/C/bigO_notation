@@ -1,0 +1,13 @@
+# Big O Notation #
+
+- O represents the upper bound of order.
+- Ω represents the best case scenario.
+- Θ represents both upper and lower bounds are the same.
+
+O(n!)
+O(2^n)
+O(n²)
+O(n log n)
+O(n)
+O(log n)
+O(1)

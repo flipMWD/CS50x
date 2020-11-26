@@ -1,0 +1,78 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+BITMAPFILEHEADER	bmp.h	/^BITMAPFILEHEADER;$/;"	t	typeref:struct:__anon0f2a099a0108
+BITMAPINFOHEADER	bmp.h	/^BITMAPINFOHEADER;$/;"	t	typeref:struct:__anon0f2a099a0208
+BYTE	bmp.h	/^typedef uint8_t  BYTE;$/;"	t	typeref:typename:uint8_t
+DWORD	bmp.h	/^typedef uint32_t DWORD;$/;"	t	typeref:typename:uint32_t
+LONG	bmp.h	/^typedef int32_t  LONG;$/;"	t	typeref:typename:int32_t
+RGBTRIPLE	bmp.h	/^RGBTRIPLE;$/;"	t	typeref:struct:__anon0f2a099a0308
+WORD	bmp.h	/^typedef uint16_t WORD;$/;"	t	typeref:typename:uint16_t
+__anon0f2a099a0108	bmp.h	/^{$/;"	s
+__anon0f2a099a0208	bmp.h	/^{$/;"	s
+__anon0f2a099a0308	bmp.h	/^{$/;"	s
+bfOffBits	bmp.h	/^    DWORD  bfOffBits;$/;"	m	struct:__anon0f2a099a0108	typeref:typename:DWORD
+bfReserved1	bmp.h	/^    WORD   bfReserved1;$/;"	m	struct:__anon0f2a099a0108	typeref:typename:WORD
+bfReserved2	bmp.h	/^    WORD   bfReserved2;$/;"	m	struct:__anon0f2a099a0108	typeref:typename:WORD
+bfSize	bmp.h	/^    DWORD  bfSize;$/;"	m	struct:__anon0f2a099a0108	typeref:typename:DWORD
+bfType	bmp.h	/^    WORD   bfType;$/;"	m	struct:__anon0f2a099a0108	typeref:typename:WORD
+biBitCount	bmp.h	/^    WORD   biBitCount;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:WORD
+biClrImportant	bmp.h	/^    DWORD  biClrImportant;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:DWORD
+biClrUsed	bmp.h	/^    DWORD  biClrUsed;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:DWORD
+biCompression	bmp.h	/^    DWORD  biCompression;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:DWORD
+biHeight	bmp.h	/^    LONG   biHeight;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:LONG
+biPlanes	bmp.h	/^    WORD   biPlanes;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:WORD
+biSize	bmp.h	/^    DWORD  biSize;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:DWORD
+biSizeImage	bmp.h	/^    DWORD  biSizeImage;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:DWORD
+biWidth	bmp.h	/^    LONG   biWidth;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:LONG
+biXPelsPerMeter	bmp.h	/^    LONG   biXPelsPerMeter;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:LONG
+biYPelsPerMeter	bmp.h	/^    LONG   biYPelsPerMeter;$/;"	m	struct:__anon0f2a099a0208	typeref:typename:LONG
+blur	discarded/all_filters_working.c	/^void blur(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+blur	discarded/blur_iterations.c	/^void blur(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+blur	discarded/blur_working.c	/^void blur(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+blur	discarded/edge_working.c	/^void blur(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+blur	discarded/edge_working_2.c	/^void blur(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+blur	helpers.c	/^void blur(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+check_boundary	discarded/all_filters_working.c	/^int check_boundary(int *h, int *w, int *y, int *x)$/;"	f	typeref:typename:int
+check_boundary	discarded/blur_working.c	/^int check_boundary(int *h, int *w, int *y, int *x)$/;"	f	typeref:typename:int
+check_boundary	discarded/edge_working.c	/^int check_boundary(int *h, int *w, int *y, int *x)$/;"	f	typeref:typename:int
+check_boundary	discarded/edge_working_2.c	/^int check_boundary(int *h, int *w, int *y, int *x)$/;"	f	typeref:typename:int
+check_boundery	discarded/blur_iterations.c	/^int check_boundery(int *w, int *h, int *x, int *y)$/;"	f	typeref:typename:int
+edges	discarded/all_filters_working.c	/^void edges(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+edges	discarded/blur_working.c	/^void edges(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+edges	discarded/edge_working.c	/^void edges(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+edges	discarded/edge_working_2.c	/^void edges(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+edges	helpers.c	/^void edges(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+filter	Makefile	/^filter:$/;"	t
+get_pos	discarded/blur_iterations.c	/^int get_pos(int h, int w, int y, int x)$/;"	f	typeref:typename:int
+grayscale	discarded/all_filters_working.c	/^void grayscale(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+grayscale	discarded/blur_working.c	/^void grayscale(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+grayscale	discarded/edge_working.c	/^void grayscale(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+grayscale	discarded/edge_working_2.c	/^void grayscale(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+grayscale	helpers.c	/^void grayscale(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+grid3	discarded/all_filters_working.c	/^int grid3[3][3][2] =$/;"	v	typeref:typename:int[3][3][2]
+grid3	discarded/blur_working.c	/^int grid3[3][3][2] =$/;"	v	typeref:typename:int[3][3][2]
+grid3	discarded/edge_working.c	/^int grid3[3][3][2] =$/;"	v	typeref:typename:int[3][3][2]
+grid3	discarded/edge_working_2.c	/^int grid3[3][3][2] =$/;"	v	typeref:typename:int[3][3][2]
+k_grid	discarded/blur_iterations.c	/^int k_grid[9][2] =$/;"	v	typeref:typename:int[9][2]
+main	filter.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+read_kernel	discarded/blur_iterations.c	/^void read_kernel(int p, int x, int y, RGBTRIPLE s, int *o)$/;"	f	typeref:typename:void
+reflect	discarded/all_filters_working.c	/^void reflect(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+reflect	discarded/blur_working.c	/^void reflect(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+reflect	discarded/edge_working.c	/^void reflect(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+reflect	discarded/edge_working_2.c	/^void reflect(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+reflect	helpers.c	/^void reflect(int height, int width, RGBTRIPLE image[height][width])$/;"	f	typeref:typename:void
+rgbtBlue	bmp.h	/^    BYTE  rgbtBlue;$/;"	m	struct:__anon0f2a099a0308	typeref:typename:BYTE
+rgbtGreen	bmp.h	/^    BYTE  rgbtGreen;$/;"	m	struct:__anon0f2a099a0308	typeref:typename:BYTE
+rgbtRed	bmp.h	/^    BYTE  rgbtRed;$/;"	m	struct:__anon0f2a099a0308	typeref:typename:BYTE
+sobelX	discarded/all_filters_working.c	/^int sobelX[3][3] =$/;"	v	typeref:typename:int[3][3]
+sobelX	discarded/edge_working.c	/^int sobelX[3][3] =$/;"	v	typeref:typename:int[3][3]
+sobelX	discarded/edge_working_2.c	/^int sobelX[3][3] =$/;"	v	typeref:typename:int[3][3]
+sobelY	discarded/all_filters_working.c	/^int sobelY[3][3] =$/;"	v	typeref:typename:int[3][3]
+sobelY	discarded/edge_working.c	/^int sobelY[3][3] =$/;"	v	typeref:typename:int[3][3]
+sobelY	discarded/edge_working_2.c	/^int sobelY[3][3] =$/;"	v	typeref:typename:int[3][3]

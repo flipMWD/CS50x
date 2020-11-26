@@ -1,0 +1,133 @@
+# Artificial Intelligence - Search
+# https://cs50.harvard.edu/ai/2020/weeks/0/
+
+# AI Characteristics
+Agent: entity that perceives its environment and acts upon that environment
+State: a configuration of the agent and its environment
+
+Initial State: where the AI begins, then start to reason about it
+Actions: choices that can be made in a state
+	- action(state)
+	- 15 slots puzzel
+	- 4 possible actions (right, left, down, up)
+Transition Model: a descriptions of what state results from performing any
+applicable action in any state
+	- result(state, action)
+State Space: the set of all states reachable from the initial state by any
+sequence of actions
+	- tree branching
+	- graph of nodes connecting all possible states for any possible action
+Goal Test: way to determine wheater a give state is a goal state
+Path Cost: numeriacal cost associated with a given path
+
+Node: a data structure that keeps track of
+	- a state
+	- a parent (node that generated this node)
+	- an action (action applied to parent to get node)
+	- a path cost (from initial state to node)
+
+Approach:
+	- start with a frontier that contains the initial state
+	- repeat:
+		> if the frontier is empty, then no solution
+		> remove a node from the frontier
+		> if node contains goal state, return the solution
+		> expand node, add resulting nodes to the frontier
+
+Example: find path from A to E
+
+A ---> B ---> D ---> F
+        `--> C ---> E
+
+> Start with frontier (A)
+> Remove node from the frontier ()
+> Node () does not contain the solution
+> Expand () to (B)
+> Repeat...
+> (B), (), (C, D), (D), (E, D), Goal is (E)
+
+Revised Approach:
+	- start with a frontier that contains the inital state
+	- start with an empty explored set
+	- repeat
+		> if the frontier is empty, then no solution
+		> remove a node from the frontier (stack=LIFO, queue=FIFO)
+		> if node contains goal state, return the solution
+		> add the node to the explored set (do not go back)
+		> expand node, add resulting nodes to the frontier if they aren't 
+		already in the frontier or the explored set
+
+Example: find path from A to E
+
+A ---> B ---> D ---> F
+        `--> C ---> E
+
+> Start with frontier (A)
+> Remove node from the frontier ()
+> Node () does not contain the solution
+> Add A to the explored set {A}
+> Expand () to (B)
+> Repeat...
+
+# Depth-first Search (LIFO)
+> (B), (), {A, B}, (C, D), {A, B, D}, (C), (C, F), {A, B, D, F}, (),
+{A, B, D, F, C}, (E), Goal is (E)
+
+# Breadth-first Search (FIFO)
+> (B), (), {A, B}, (C, D), {A, B, C}, (D), (D, E), {A, B, C, D}, (E), Goal is (E)
+
+
+# Search
+Uninformed Search: search strategy that uses no problem-specifc knowledge
+Informed Search: search strategy that uses problem-specifc knowledge to find
+solutions more efficiently
+
+Greedy Best-first Search: search algorithm that expands the node that is closest
+to the goal, as estimated by a heuristic function h(n)
+	- Heuristic function: Manhattan distance (coordinate sum closest to goal)
+A* Search: search algorithm that expands node with lowest value of g(n) + h(n)
+	- g(n) = cost of reach node (steps to get to current position)
+	- h(n) = estimated cost to goal
+	- optimal if:
+		> h(n) is admissible (never overestimates the true cost), and
+		> h(n) is consistent (for every node n and successor n' with step cost
+		c, h(n) <= h(n') + c)
+Minimax: adversarial competition where one player tries to increase and the
+other to decrease the abstract concept of winning and losing
+	- MAX(X) aims to maximize score
+	- MIN(O) aims to minimize score
+	- S_0 = initial state
+	- player(s) returns which player to move in state s
+	- actions(s) returns a set of legal moves in state s
+	- result(s, a) returns state after action a taken in state s
+	- terminal(s) checks if state s is a terminal state (when the game is over)
+	- utility(s) final numerical value for terminal state s
+
+	- Given a state s:
+		> MAX picks action a in actions(s) that produces highest value of
+		min-value(result(s, a))
+		> MIN picks action a in actions(s) that produces smallest value of
+		max-value(result(s, a))
+
+		> function max-value(state):
+			if terminal(state):
+				return utility(state)
+			v = -∞
+			for action in actions(state):
+				v = max(v, min-value(result(state, action)))
+			return v
+
+		> function min-value(state):
+			if terminal(state):
+				return utility(state)
+			v = ∞
+			for action in actions(state):
+				v = min(v, max-value(result(state, action)))
+			return v
+
+
+# Optmizations
+Alpha-Beta Pruning: keep track of best and worst possible options so far
+Depth-Limited Minimax: do not seek for the end of the game
+	- evaluation function: estimates the expected utility of the game from a
+	given state

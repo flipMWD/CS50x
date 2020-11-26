@@ -1,0 +1,33 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	color: white;
+	background: #37474f;
+}
+
+.nav {
+	color: white;
+	background: #263238;
+	border-bottom: black 1px solid;
+}
+
+#theme {
+	float: right;
+}
+
+.jumbotron {
+	color: black;
+	background: white;
+	margin: 60px;
+}
+
+h2 {
+	display: inline-block;
+}
+
+.return {
+	float: right;
+}

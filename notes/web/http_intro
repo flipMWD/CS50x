@@ -1,0 +1,23 @@
+# HTTP
+IPv4	32-bits
+IPv6	128-bits
+
+Ports:
+21		FTP
+25		SMTP
+80		HTTP
+
+# Request
+GET / HTTP/1.1				# root location, version
+Host: www.example.com
+
+# Response
+HTTP/1.1 200 OK				# version, status code
+Content-Type: text/html
+
+Status Codes:
+200		OK
+301		Moved Permanently
+403		Forbidden
+404		Not Found
+500		Internal Server Error
