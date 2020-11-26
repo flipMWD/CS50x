@@ -1,4 +1,4 @@
-# CS50x - Harvard OpernCourseWare
+# CS50x - Harvard OpenCourseWare
 
 `https://cs50.harvard.edu/x/2020/`
 
