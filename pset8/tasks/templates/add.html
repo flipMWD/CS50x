@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <form action="/add" method="post">
-        <input id="task" name="task" type="text" placeholder="Task name">
-        <input id="submit" type="submit" disabled>
-    </form>
-    <script>
-        let task = document.querySelector('#task');
-        let button = document.querySelector('#submit');
-        task.onkeyup = function() {
-            if (task.value === '') {
-                button.disabled = true;
-            } else {
-                button.disabled = false;
-            }
-        }
-    </script>
+	<form action="/add" method="post">
+		<input id="task" name="task" type="text" placeholder="Task name">
+		<input id="submit" type="submit" disabled>
+	</form>
+	<script>
+		let task = document.querySelector('#task');
+		let button = document.querySelector('#submit');
+		task.onkeyup = function() {
+			if (task.value === '') {
+				button.disabled = true;
+			} else {
+				button.disabled = false;
+			}
+		}
+	</script>
 {% endblock %}

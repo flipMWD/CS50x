@@ -1,22 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <!-- Jinja - Template Engine -->
-    <h1>Hello, {{name}}!</h1>
-    <ul>
-        <li>{{template_number}}</li>
-    </ul>
-    <!-- Condition -->
-    <p>
-        {% if t_coin_flip == 1 %}
-            Your coin flip is HEADS.
-        {% else %}
-            Your coin flip is TAILS.
-        {% endif %}
-    </p>
-    <hr>
-    <form action="/hello">
-        <input name="name" type="text">
-        <input type="submit">
-    </form>
+	<!-- Jinja - Template Engine -->
+	<h1>Hello, {{name}}!</h1>
+	<ul>
+		<li>{{template_number}}</li>
+	</ul>
+	<!-- Condition -->
+	<p>
+		{% if t_coin_flip == 1 %}
+			Your coin flip is HEADS.
+		{% else %}
+			Your coin flip is TAILS.
+		{% endif %}
+	</p>
+	<hr>
+	<form action="/hello">
+		<input name="name" type="text">
+		<input type="submit">
+	</form>
 {% endblock %}

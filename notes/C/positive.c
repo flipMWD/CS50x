@@ -14,8 +14,7 @@ int get_positive_num(void)
 {
 	int n;
 
-	do
-	{
+	do {
 		n = get_int("Insert a positive integer: ");
 	}
 	while (n < 1);

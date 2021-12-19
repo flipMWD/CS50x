@@ -19,27 +19,21 @@ int locked2[3][3] =
 
 int cycle_check(int f, int t)
 {
-    int c = 0;
+	int c = 0;
 
-    for (int i = 0; i < candidate_count; ++i)
-    {
-        if (locked[f][i])
-        {
-            if (i == t)
-            {
-                return 1;
-            }
+	for (int i = 0; i < candidate_count; ++i) {
+		if (locked[f][i]) {
+			if (i == t) {
+				return 1;
+			} else {
+				c = cycle_check(i, t);
+			}
+		}
+	}
 
-            else
-            {
-                c = cycle_check(i, t);
-            }
-        }
-    }
+	if (c) return 1;
 
-    if (c) return 1;
-
-    return 0;
+	return 0;
 }
 
 int main(void)

@@ -1,33 +1,33 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Buy Info
+	Buy Info
 {% endblock %}
 
 {% block main %}
-    <form action="/buy" method="post">
-        <div class="input-group mb-3">
-            <input autocomplete="off" class="form-control" name="symbol" placeholder="SYMBOL" type="text" value="{{ symbol }}">
-            <input autocomplete="off" autofocus class="form-control" name="shares" placeholder="# Shares" type="number" min="1">
-            <div class="input-group-append">
-                <button class="btn btn-outline-success" type="submit">Buy Shares</button>
-            </div>
-        </div>
-    </form>
-    <hr>
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>Symbol</th>
-            <th>Company Name</th>
-            <th>Price</th>
-        </tr>
-        <tr>
-            <td>{{ quote_info["symbol"] }}</td>
-            <td>{{ quote_info["name"] }}</td>
-            <td>{{ quote_info["price"] }}</td>
-        </tr>
-        <tr>
-            <td colspan="3"><strong>Total:</strong> {{ total_cash }}</td>
-        </tr>
-    </table>
+	<form action="/buy" method="post">
+		<div class="input-group mb-3">
+			<input autocomplete="off" class="form-control" name="symbol" placeholder="SYMBOL" type="text" value="{{ symbol }}">
+			<input autocomplete="off" autofocus class="form-control" name="shares" placeholder="# Shares" type="number" min="1">
+			<div class="input-group-append">
+				<button class="btn btn-outline-success" type="submit">Buy Shares</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>Symbol</th>
+			<th>Company Name</th>
+			<th>Price</th>
+		</tr>
+		<tr>
+			<td>{{ quote_info["symbol"] }}</td>
+			<td>{{ quote_info["name"] }}</td>
+			<td>{{ quote_info["price"] }}</td>
+		</tr>
+		<tr>
+			<td colspan="3"><strong>Total:</strong> {{ total_cash }}</td>
+		</tr>
+	</table>
 {% endblock %}
